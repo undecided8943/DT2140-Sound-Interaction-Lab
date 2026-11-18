@@ -80,7 +80,7 @@ function deviceTurned() {
 function deviceShaken() {
     shaketimer = millis();
     statusLabels[0].style("color", "pink");
-    playAudio();
+    // playAudio();
 }
 
 function getMinMaxParam(address) {
@@ -112,7 +112,7 @@ function playAudio() {
     // them printed on the console of your browser when you load the page)
     // For example if you change to a bell sound, here you could use "/churchBell/gate" instead of
     // "/thunder/rumble".
-    dspNode.setParamValue("/russianBell/gate", 4)
+    dspNode.setParamValue("/russianBell/gate", 1)
     setTimeout(() => { dspNode.setParamValue("/russianBell/gate", 4) }, 100);
 }
 
