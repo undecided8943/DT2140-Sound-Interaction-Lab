@@ -59,20 +59,20 @@ let lastAngle = null;
 let lastCheckTime = 0;
 
 function rotationChange(rotx, roty, rotz) {
-    const threshold = 10;
+       const threshold = 10;
     if (millis() - lastCheckTime < 1000) {
         return;
     }
     lastCheckTime = millis();
 
     if (lastAngle == null) {
-        lastAngle = degrees(rotz);
+        lastAngle = rotz;
         return;
     }
 
-    const angle = degrees(rotz);
-    
-    const change = Math.abs(((degrees(rotz) - lastAngle + 540) % 360) - 180);
+    const angle = rotz;
+
+    const change = Math.abs(((rotz - lastAngle + 540) % 360) - 180);
     if (change > threshold) {
         playAudio();
     }
