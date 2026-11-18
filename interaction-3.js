@@ -69,6 +69,8 @@ function rotationChange(rotx, roty, rotz) {
         lastAngle = degrees(rotz);
         return;
     }
+
+    const angle = degrees(rotz);
     
     const change = Math.abs(((degrees(rotz) - lastAngle + 540) % 360) - 180);
     if (change > threshold) {
