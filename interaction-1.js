@@ -59,7 +59,7 @@ function rotationChange(rotx, roty, rotz) {
     const lowerBound = 30;
     const upperBound = 50;
 
-    if (30 < rotz < 50) {
+    if (30 < rotz && rotz < 50) {
         playAudio();
     }
 }
