@@ -106,8 +106,8 @@ function playAudio() {
     if (audioContext.state === 'suspended') {
         return;
     }
-    dspNode.setParamValue("/torpedo/Freeverb/0x00/Stereo_Spread", 2)
-    setTimeout(() => { dspNode.setParamValue("/torpedo/Freeverb/0x00/Stereo_Spread", 0) }, 100);
+    dspNode.setParamValue("/torpedo/trigger", 1)
+    setTimeout(() => { dspNode.setParamValue("/torpedo/trigger", 0) }, 100);
 }
 
 //==========================================================================================
