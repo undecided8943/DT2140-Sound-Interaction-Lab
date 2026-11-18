@@ -12,7 +12,7 @@ let dspNodeParams = null;
 let jsonParams = null;
 
 // Change here to ("tuono") depending on your wasm file name
-const dspName = "brass";
+const dspName = "door";
 const instance = new FaustWasm2ScriptProcessor(dspName);
 
 // output to window or npm package module
@@ -25,7 +25,7 @@ if (typeof module === "undefined") {
 }
 
 // The name should be the same as the WASM file, so change tuono with brass if you use brass.wasm
-brass.createDSP(audioContext, 1024)
+door.createDSP(audioContext, 1024)
     .then(node => {
         dspNode = node;
         dspNode.connect(audioContext.destination);
@@ -55,7 +55,26 @@ function accelerationChange(accx, accy, accz) {
     // playAudio()
 }
 
+let lastAngle = null;
+let lastCheckTime = 0;
+
 function rotationChange(rotx, roty, rotz) {
+    const threshold = 10;
+    if (millis() - lastCheckTime < 1000) {
+        return;
+    }
+    lastCheckTime = millis();
+
+    if (lastAngle == null) {
+        lastAngle = degrees(rotz);
+        return;
+    }
+    
+    const change = Math.abs(((degrees(rotz) - lastAngle + 540) % 360) - 180);
+    if (change > threshold) {
+        playAudio();
+    }
+    lastAngle = angle;
 }
 
 function mousePressed() {
@@ -95,15 +114,15 @@ function getMinMaxParam(address) {
 //
 //==========================================================================================
 
-function playAudio(pressure) {
+function playAudio() {
     if (!dspNode) {
         return;
     }
     if (audioContext.state === 'suspended') {
         return;
     }
-    console.log(pressure)
-    dspNode.setParamValue("/brass/blower/pressure", pressure)
+    dspNode.setParamValue("/door/volume", 1)
+    setTimeout(() => { dspNode.setParamValue("/door/volume", 0) }, 100);
 }
 
 //==========================================================================================
